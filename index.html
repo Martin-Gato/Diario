@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Diario de Trabajo</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <canvas id="neural-bg" aria-hidden="true"></canvas>
+
+  <div class="scanlines" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <p class="prompt-line">visitante@bitacora:~$ <span class="cursor">_</span></p>
+      <h1 class="glitch" data-text="DIARIO_DE_TRABAJO">DIARIO_DE_TRABAJO</h1>
+      <p id="header-subtitle" class="subtitle">// bitácora técnica de mi paso por este puesto</p>
+    </div>
+
+    <nav class="tabs" aria-label="Secciones">
+      <button class="tab-btn is-active" data-tab="bitacora" type="button">01_bitacora</button>
+      <button class="tab-btn" data-tab="habilidades" type="button">02_habilidades</button>
+      <button class="tab-btn" data-tab="acerca" type="button">03_acerca_de</button>
+    </nav>
+  </header>
+
+  <main class="content">
+
+    <!-- ===================== TAB: BITACORA ===================== -->
+    <section id="tab-bitacora" class="tab-panel is-active" aria-labelledby="tab-btn-bitacora">
+
+      <div id="stats-bar" class="stats-bar" role="group" aria-label="Estadísticas generales"></div>
+
+      <div class="toolbar">
+        <div class="search-box">
+          <span class="search-icon">grep&gt;</span>
+          <input type="search" id="search-input" placeholder="buscar por proyecto, tarea o palabra clave..." autocomplete="off">
+        </div>
+        <div class="tag-filters" id="tag-filters" role="group" aria-label="Filtrar por etiqueta"></div>
+      </div>
+
+      <ol id="timeline" class="timeline"></ol>
+
+      <p id="empty-state" class="empty-state" hidden>// sin resultados para ese filtro. intenta con otro término.</p>
+    </section>
+
+    <!-- ===================== TAB: HABILIDADES ===================== -->
+    <section id="tab-habilidades" class="tab-panel" aria-labelledby="tab-btn-habilidades">
+      <h2 class="section-title">// stack acumulado</h2>
+      <p class="section-hint">Frecuencia de cada tecnología/habilidad a lo largo de la bitácora — se actualiza sola conforme agregas entradas.</p>
+      <div id="skills-grid" class="skills-grid"></div>
+    </section>
+
+    <!-- ===================== TAB: ACERCA DE ===================== -->
+    <section id="tab-acerca" class="tab-panel" aria-labelledby="tab-btn-acerca">
+      <h2 class="section-title">// acerca de este registro</h2>
+      <div id="about-card" class="about-card"></div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>bitácora personal · generado localmente · <span id="footer-year"></span></p>
+  </footer>
+
+  <template id="entry-template">
+    <li class="entry">
+      <div class="entry-rail" aria-hidden="true"><span class="entry-dot"></span></div>
+      <article class="entry-card">
+        <header class="entry-head">
+          <p class="entry-cmd">$ cat entrada_<span class="entry-range"></span>.log</p>
+          <h3 class="entry-project"></h3>
+          <p class="entry-dates"></p>
+        </header>
+        <p class="entry-summary"></p>
+        <ul class="entry-tags" aria-label="Etiquetas"></ul>
+
+        <details class="entry-details">
+          <summary>tareas_realizadas</summary>
+          <ul class="entry-tasks"></ul>
+        </details>
+
+        <details class="entry-details entry-findings-block">
+          <summary>hallazgos_y_aprendizajes</summary>
+          <ul class="entry-findings"></ul>
+        </details>
+
+        <details class="entry-details entry-pending-block">
+          <summary>pendientes</summary>
+          <ul class="entry-pending"></ul>
+        </details>
+      </article>
+    </li>
+  </template>
+
+  <script src="js/entries-data.js"></script>
+  <script src="js/neural-network.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
