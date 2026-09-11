@@ -115,4 +115,43 @@ const ENTRIES = [
       "Terminar de cargar en Vikunja las tareas restantes del plan de acción y del resto de proyectos en curso.",
     ],
   },
+  {
+    id: "dashboard-operaciones-powerbi-03",
+    dateStart: "2026-09-10",
+    dateEnd: "2026-09-10",
+    project: "Ingeniería Inversa del Dashboard de Operaciones (Power BI)",
+    tags: [
+      "Power BI",
+      "DAX",
+      "Power Query",
+      "ERP",
+      "Modelado de Datos",
+      "Debugging",
+      "Documentación",
+    ],
+    summary:
+      "Mi jefe me entregó un dashboard de Power BI ya existente para agregarle funcionalidad nueva. Como es un reporte con conexión en vivo a un dataset publicado en el servicio de Power BI (sin acceso a las medidas DAX ni a las transformaciones Power Query, que viven del lado del dataset remoto), reconstruí toda la lógica de negocio por evidencia: cruzando lo que se ve en el reporte contra exports reales de las tablas fuente del ERP. Confirmé 5 de 6 piezas de lógica y detecté 2 bugs existentes, documentando todo en un informe formal para mi jefe.",
+    tasks: [
+      "Mapeé las 6 páginas del dashboard (Panel Principal, Surtido, Surtido Histórico, Tiempo Total Histórico, Indicador Diario y Analítico Tiempos) y las tablas que alimenta cada una.",
+      "Reconstruí y confirmé con datos reales la lógica de Status Ped vs. Status Onest: dos ejes distintos del mismo flujo de un pedido (si ya se mandó a surtir vs. en qué parte del flujo completo está).",
+      "Validé contra 282 registros reales la fórmula del semáforo de cumplimiento (ID_Sts): compara una fecha objetivo/compromiso (creación + 2 días naturales) contra la fecha actual, sin una sola excepción en la muestra.",
+      "Reconstruí y validé con 34 pedidos, enlazando 3 fuentes distintas (encabezado del pedido, tabla de eventos de interfaz y log de envío), la fórmula real de tiempo de surtido.",
+      "Calculé, sobre 1,401 pedidos, la tasa de error de interfaz en el evento clave del proceso (6.4%), el indicador de envíos detenidos por algún problema que el negocio había pedido auditar.",
+      "Documenté el significado de los prefijos de numeración de pedidos como identificador del canal de venta de origen.",
+      "Redacté un documento formal de hallazgos para compartir con mi jefe, incluyendo una tabla resumen del estado de cada pieza de lógica investigada.",
+    ],
+    findings: [
+      "Descubrí que la página 'Tiempo Total Histórico' calcula sus métricas de tiempo desde la tabla incorrecta, por lo que los números que muestra hoy probablemente no reflejan el proceso real.",
+      "Detecté un desfase de exactamente 6 horas entre dos tablas de log del sistema, en el 100% de los 34 casos analizados — consistente con un problema de zona horaria (UTC vs. hora local) entre ambas fuentes, no con un problema de proceso.",
+      "Probé tres hipótesis distintas para un campo de estatus de envío (completo/incompleto) contra 20 pedidos reales y ninguna cuadró de forma consistente; concluí que probablemente es un campo que se escribe una sola vez en el momento del evento de embarque, del lado de la interfaz personalizada que conecta los pedidos con el ERP, y luego queda fijo (no se recalcula en vivo).",
+      "Aprendí que cuando un reporte de Power BI tiene conexión en vivo a un dataset remoto, no basta con abrir el archivo: si no hay acceso al modelo semántico, hay que reconstruir la lógica cruzando visuales y capturas contra exports reales de las tablas fuente.",
+    ],
+    pending: [
+      "Definir con mi jefe cuál es el cambio específico que hay que agregar o actualizar en el dashboard antes de construir nada nuevo.",
+      "Corregir la tabla fuente que usa la página 'Tiempo Total Histórico' para que use la fuente correcta de tiempos de surtido.",
+      "Normalizar la zona horaria entre las dos tablas de log antes de calcular tiempos exactos con ambas.",
+      "Conseguir de quien administra la interfaz personalizada la definición exacta y el evento donde se escribe el campo de estatus de envío.",
+      "Evaluar solicitar acceso mínimo de solo lectura (permiso de build) al dataset publicado en el servicio de Power BI, en vez de seguir reconstruyendo todo por evidencia.",
+    ],
+  },
 ];
