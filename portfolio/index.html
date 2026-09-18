@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — Martin Alejos Martínez</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <canvas id="neural-bg" aria-hidden="true"></canvas>
+
+  <div class="scanlines" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <p class="prompt-line">visitante@portfolio:~$ <span class="cursor">_</span></p>
+      <h1 class="glitch" data-text="PORTFOLIO" id="hero-name">PORTFOLIO</h1>
+      <p id="hero-role" class="subtitle"></p>
+      <p id="hero-tagline" class="tagline"></p>
+    </div>
+
+    <nav class="tabs" aria-label="Secciones">
+      <a class="tab-btn" href="#proyectos">01_proyectos</a>
+      <a class="tab-btn" href="#habilidades">02_habilidades</a>
+      <a class="tab-btn" href="#contacto">03_contacto</a>
+    </nav>
+  </header>
+
+  <main class="content">
+
+    <!-- ===================== PROYECTOS ===================== -->
+    <section id="proyectos" class="page-section">
+      <h2 class="section-title">// proyectos</h2>
+      <p class="section-hint">Cada tarjeta resume un proyecto real: contexto, tecnologías usadas y los logros más relevantes.</p>
+
+      <div id="stats-bar" class="stats-bar" role="group" aria-label="Estadísticas generales"></div>
+
+      <div id="projects-grid" class="projects-grid"></div>
+    </section>
+
+    <!-- ===================== HABILIDADES ===================== -->
+    <section id="habilidades" class="page-section">
+      <h2 class="section-title">// stack acumulado</h2>
+      <p class="section-hint">Frecuencia de cada tecnología a lo largo de los proyectos — se actualiza sola conforme agrego proyectos nuevos.</p>
+      <div id="skills-grid" class="skills-grid"></div>
+    </section>
+
+    <!-- ===================== CONTACTO ===================== -->
+    <section id="contacto" class="page-section">
+      <h2 class="section-title">// contacto</h2>
+      <div class="contact-card">
+        <div class="about-row">
+          <span class="about-key">email</span>
+          <a id="contact-email" class="about-value contact-link" href="#"></a>
+        </div>
+        <div class="about-row">
+          <span class="about-key">github</span>
+          <a id="contact-github" class="about-value contact-link" href="#" target="_blank" rel="noopener noreferrer"></a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <p>portfolio personal · generado localmente · <span id="footer-year"></span></p>
+  </footer>
+
+  <template id="project-template">
+    <article class="project-card">
+      <header class="project-head">
+        <p class="project-cmd"></p>
+        <div class="project-title-row">
+          <h3 class="project-title"></h3>
+          <span class="project-status"></span>
+        </div>
+        <p class="project-period"></p>
+      </header>
+      <p class="project-summary"></p>
+      <ul class="project-stack" aria-label="Tecnologías"></ul>
+      <details class="project-details" open>
+        <summary>logros_y_resultados</summary>
+        <ul class="project-highlights"></ul>
+      </details>
+    </article>
+  </template>
+
+  <script src="js/projects-data.js"></script>
+  <script src="js/neural-network.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
